@@ -27,21 +27,21 @@ export default function ImageShow(){
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setUpdatedImage((preIndex) => {
-               preIndex = preIndex > images.length - 1 ? preIndex + 1 : 0 ;
-            },5000)
-        })
-        return () => clearInterval(interval)
-    },[])
+            setUpdatedImage((prevIndex) =>
+            prevIndex < images.length - 1 ? prevIndex + 1 : 0
+          );
+        }, 5000);
+    
+        return () => clearInterval(interval);
+      }, []);
     return(
-        <div className={classes.ImageShow}>
+        <div className={classes.slideshow}>
             {
                 images.map((image,index) => (
                 <Image key={index} 
                 src={image.image} 
                 alt={image.alt} 
-                width={500000} 
-                height={500000} 
+               fill
                 className={index === UpdatedImage ? classes.active : ''} />))
             }
         </div>
